@@ -1,4 +1,5 @@
 import argparse
+import sys
 from pathlib import Path
 
 from services.resume_matcher import analyze_resume_match
@@ -74,9 +75,34 @@ def parse_args():
     return parser.parse_args()
 
 
+def run_analysis(resume_path, job_description_path, output_path):
+    """
+    Runs the resume/job matching workflow.
+
+    Args:
+        resume_path (Path): Path to the resume text file.
+        job_description_path (Path): Path to the job description text file.
+        output_path (Path): Path where the generated report should be saved.
+
+    Returns:
+        str: The generated CareerFit AI match report.
+    """
+    resume_text = read_text_file(resume_path)
+    job_description_text = read_text_file(job_description_path)
+
+    report = analyze_resume_match(
+        resume_text=resume_text,
+        job_description_text=job_description_text,
+    )
+
+    save_report(report, output_path)
+
+    return report
+
+
 def main():
     """
-    Runs the CareerFit AI resume/job matching workflow.
+    Runs the CareerFit AI command-line application.
     """
     args = parse_args()
 
@@ -89,15 +115,15 @@ def main():
     print(f"Job description file: {job_description_path}")
     print(f"Output file: {output_path}\n")
 
-    resume_text = read_text_file(resume_path)
-    job_description_text = read_text_file(job_description_path)
-
-    report = analyze_resume_match(
-        resume_text=resume_text,
-        job_description_text=job_description_text,
-    )
-
-    save_report(report, output_path)
+    try:
+        report = run_analysis(
+            resume_path=resume_path,
+            job_description_path=job_description_path,
+            output_path=output_path,
+        )
+    except (FileNotFoundError, ValueError) as error:
+        print(f"Error: {error}")
+        sys.exit(1)
 
     print(report)
     print(f"\nReport saved to: {output_path}")
