@@ -167,7 +167,8 @@ Example `POST /analyze` response body:
 
 ```json
 {
-  "report": "# CareerFit AI Match Report..."
+  "report": "# CareerFit AI Match Report...",
+  "summary": "CareerFit AI analysis completed successfully."
 }
 ```
 
