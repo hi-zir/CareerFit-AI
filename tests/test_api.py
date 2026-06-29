@@ -81,6 +81,20 @@ class TestApiRootEndpoint(unittest.TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {"detail": "Invalid input"})
+    
+    def test_health_endpoint_returns_healthy_status(self):
+        client = TestClient(app)
+
+        response = client.get("/health")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            {
+                "status": "healthy",
+                "service": "CareerFit AI API",
+            },
+        )
 
 if __name__ == "__main__":
     unittest.main()

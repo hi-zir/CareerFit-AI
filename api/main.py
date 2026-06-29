@@ -23,6 +23,20 @@ def root():
         "version": "v2",
         "status": "running",
     }
+
+@app.get("/health")
+def health_check():
+    """
+    Health check endpoint for monitoring the API.
+
+    Returns:
+        dict: API health status.
+    """
+    return {
+        "status": "healthy",
+        "service": "CareerFit AI API",
+    }
+
 @app.post("/analyze", response_model=ResumeMatchResponse)
 def analyze_resume(request: ResumeMatchRequest):
     """
