@@ -41,6 +41,31 @@ class TestApiRootEndpoint(unittest.TestCase):
             resume_text="Python and SQL resume",
             job_description_text="Backend AI job",
         )
+    def test_analyze_endpoint_rejects_empty_resume(self):
+        client = TestClient(app)
+
+        response = client.post(
+            "/analyze",
+            json={
+                "resume_text": "",
+                "job_description_text": "Backend AI job",
+            },
+        )
+
+        self.assertEqual(response.status_code, 422)
+
+    def test_analyze_endpoint_rejects_empty_job_description(self):
+        client = TestClient(app)
+
+        response = client.post(
+            "/analyze",
+            json={
+                "resume_text": "Python and SQL resume",
+                "job_description_text": "",
+            },
+        )
+
+        self.assertEqual(response.status_code, 422)
 
 if __name__ == "__main__":
     unittest.main()
