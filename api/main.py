@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from api.schemas import ResumeMatchRequest, ResumeMatchResponse
 from services.resume_matcher import analyze_resume_match
 
@@ -34,9 +34,12 @@ def analyze_resume(request: ResumeMatchRequest):
     Returns:
         ResumeMatchResponse: The generated CareerFit AI match report.
     """
-    report = analyze_resume_match(
-        resume_text=request.resume_text,
-        job_description_text=request.job_description_text,
-    )
+    try:
+        report = analyze_resume_match(
+            resume_text=request.resume_text,
+            job_description_text=request.job_description_text,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
     return ResumeMatchResponse(report=report)

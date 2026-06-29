@@ -67,5 +67,20 @@ class TestApiRootEndpoint(unittest.TestCase):
 
         self.assertEqual(response.status_code, 422)
 
+    def test_analyze_endpoint_returns_400_for_service_value_error(self):
+        client = TestClient(app)
+
+        with patch("api.main.analyze_resume_match", side_effect=ValueError("Invalid input")):
+            response = client.post(
+                "/analyze",
+                json={
+                    "resume_text": "Python and SQL resume",
+                    "job_description_text": "Backend AI job",
+                },
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"detail": "Invalid input"})
+
 if __name__ == "__main__":
     unittest.main()
