@@ -41,6 +41,7 @@ class TestApiRootEndpoint(unittest.TestCase):
             {
                 "report": fake_report,
                 "summary": ANALYSIS_SUCCESS_SUMMARY,
+                "match_score": None,
             },
         )
         mock_analyze.assert_called_once_with(

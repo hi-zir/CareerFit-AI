@@ -60,4 +60,5 @@ def analyze_resume(request: ResumeMatchRequest):
     return ResumeMatchResponse(
         report=report,
         summary=ANALYSIS_SUCCESS_SUMMARY,
+        match_score=None,
     )
