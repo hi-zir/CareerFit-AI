@@ -1,0 +1,11 @@
+We are hiring an AI Backend Engineer to build AI-powered backend tools.
+
+Requirements:
+- Strong Python programming experience
+- Experience building REST APIs
+- SQL and database experience
+- Cloud platform experience such as AWS, Azure, or GCP
+- Basic machine learning knowledge
+- Experience integrating AI models into applications
+- Ability to build reliable backend services
+- Git and Linux experience

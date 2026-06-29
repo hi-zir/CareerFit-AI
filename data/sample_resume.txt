@@ -1,0 +1,17 @@
+Big Data Software Engineer with experience building data pipelines and backend data processing systems.
+
+Skills:
+- Python
+- SQL
+- Apache Spark
+- ETL pipelines
+- Data processing
+- Backend scripting
+- Linux
+- Git
+
+Experience:
+- Developed and maintained ETL pipelines for large-scale data processing.
+- Used Python and SQL to clean, transform, and validate data.
+- Worked with Apache Spark to process large datasets.
+- Collaborated with technical teams to troubleshoot production data issues.
