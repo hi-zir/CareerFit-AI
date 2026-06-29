@@ -3,7 +3,22 @@ from openai import OpenAI
 from config import OPENAI_API_KEY, OPENAI_MODEL, validate_config
 
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+def create_openai_client():
+    """
+    Creates and returns an OpenAI client.
+
+    Returns:
+        OpenAI: A configured OpenAI client.
+
+    Raises:
+        ValueError: If required configuration is missing.
+    """
+    config_errors = validate_config()
+
+    if config_errors:
+        raise ValueError("Invalid configuration: " + "; ".join(config_errors))
+
+    return OpenAI(api_key=OPENAI_API_KEY)
 
 
 def ask_ai(prompt):
@@ -19,10 +34,7 @@ def ask_ai(prompt):
     Raises:
         ValueError: If required configuration is missing.
     """
-    config_errors = validate_config()
-
-    if config_errors:
-        raise ValueError("Invalid configuration: " + "; ".join(config_errors))
+    client = create_openai_client()
 
     response = client.responses.create(
         model=OPENAI_MODEL,
