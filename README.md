@@ -26,6 +26,8 @@ The goal is to practice real-world AI application development while building a u
 - Prompt engineering
 - Resume/job description analysis
 - File-based input and output workflow
+- CLI argument handling
+- Unit testing with mocks
 - Git and GitHub project organization
 
 ## Project Structure
@@ -37,11 +39,15 @@ CareerFit-AI/
 ├── prompts.py
 ├── requirements.txt
 ├── README.md
+├── AGENTS.md
 ├── data/
 │   ├── sample_resume.txt
 │   └── sample_job_description.txt
 ├── services/
 │   ├── openai_service.py
 │   └── resume_matcher.py
+├── tests/
+│   ├── test_app_workflow.py
+│   └── test_core.py
 └── outputs/
     └── .gitkeep
