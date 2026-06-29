@@ -3,7 +3,8 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
-from api.main import app
+from api.main import ANALYSIS_SUCCESS_SUMMARY, app
+
 
 
 class TestApiRootEndpoint(unittest.TestCase):
@@ -39,7 +40,7 @@ class TestApiRootEndpoint(unittest.TestCase):
             response.json(),
             {
                 "report": fake_report,
-                "summary": "CareerFit AI analysis completed successfully.",
+                "summary": ANALYSIS_SUCCESS_SUMMARY,
             },
         )
         mock_analyze.assert_called_once_with(

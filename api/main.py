@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from api.schemas import ResumeMatchRequest, ResumeMatchResponse
 from services.resume_matcher import analyze_resume_match
 
+ANALYSIS_SUCCESS_SUMMARY = "CareerFit AI analysis completed successfully."
 
 app = FastAPI(
     title="CareerFit AI API",
@@ -58,5 +59,5 @@ def analyze_resume(request: ResumeMatchRequest):
 
     return ResumeMatchResponse(
         report=report,
-        summary="CareerFit AI analysis completed successfully.",
+        summary=ANALYSIS_SUCCESS_SUMMARY,
     )
