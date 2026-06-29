@@ -28,3 +28,8 @@ class ResumeMatchResponse(BaseModel):
         ...,
         description="The generated CareerFit AI match report.",
     )
+
+    summary: str = Field(
+        ...,
+        description="Short summary of the analysis result.",
+    )

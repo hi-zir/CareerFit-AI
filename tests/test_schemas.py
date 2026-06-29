@@ -30,9 +30,16 @@ class TestApiSchemas(unittest.TestCase):
             )
 
     def test_resume_match_response_accepts_report(self):
-        response = ResumeMatchResponse(report="# CareerFit AI Match Report")
+        response = ResumeMatchResponse(
+            report="# CareerFit AI Match Report",
+            summary="CareerFit AI analysis completed successfully.",
+        )
 
         self.assertEqual(response.report, "# CareerFit AI Match Report")
+        self.assertEqual(
+            response.summary,
+            "CareerFit AI analysis completed successfully.",
+        )
 
 
 if __name__ == "__main__":

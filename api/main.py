@@ -56,4 +56,7 @@ def analyze_resume(request: ResumeMatchRequest):
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
-    return ResumeMatchResponse(report=report)
+    return ResumeMatchResponse(
+        report=report,
+        summary="CareerFit AI analysis completed successfully.",
+    )

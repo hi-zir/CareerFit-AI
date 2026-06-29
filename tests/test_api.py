@@ -35,8 +35,13 @@ class TestApiRootEndpoint(unittest.TestCase):
             )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"report": fake_report})
-
+        self.assertEqual(
+            response.json(),
+            {
+                "report": fake_report,
+                "summary": "CareerFit AI analysis completed successfully.",
+            },
+        )
         mock_analyze.assert_called_once_with(
             resume_text="Python and SQL resume",
             job_description_text="Backend AI job",
