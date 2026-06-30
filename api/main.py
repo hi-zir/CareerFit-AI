@@ -1,6 +1,9 @@
 from fastapi import FastAPI, HTTPException
+
 from api.schemas import ResumeMatchRequest, ResumeMatchResponse
 from services.resume_matcher import analyze_resume_match
+from services.report_parser import extract_match_score
+
 
 ANALYSIS_SUCCESS_SUMMARY = "CareerFit AI analysis completed successfully."
 
@@ -57,8 +60,10 @@ def analyze_resume(request: ResumeMatchRequest):
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
+    match_score = extract_match_score(report)
+
     return ResumeMatchResponse(
         report=report,
         summary=ANALYSIS_SUCCESS_SUMMARY,
-        match_score=None,
+        match_score=match_score,
     )

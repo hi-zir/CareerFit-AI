@@ -24,8 +24,12 @@ class TestApiRootEndpoint(unittest.TestCase):
         )
     def test_analyze_endpoint_returns_report(self):
         client = TestClient(app)
-        fake_report = "# Fake CareerFit AI Match Report"
+        fake_report = """
+        # Fake CareerFit AI Match Report
 
+        ## 1. Match Score
+        Score: 82/100
+        """
         with patch("api.main.analyze_resume_match", return_value=fake_report) as mock_analyze:
             response = client.post(
                 "/analyze",
@@ -41,7 +45,7 @@ class TestApiRootEndpoint(unittest.TestCase):
             {
                 "report": fake_report,
                 "summary": ANALYSIS_SUCCESS_SUMMARY,
-                "match_score": None,
+                "match_score": 82,
             },
         )
         mock_analyze.assert_called_once_with(
