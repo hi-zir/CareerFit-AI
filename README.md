@@ -165,12 +165,11 @@ Example `POST /analyze` request body:
 
 Example `POST /analyze` response body:
 
-```json
 {
   "report": "# CareerFit AI Match Report...",
-  "summary": "CareerFit AI analysis completed successfully."
+  "summary": "CareerFit AI analysis completed successfully.",
+  "match_score": null
 }
-```
 
 ## Run Tests
 
