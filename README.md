@@ -166,11 +166,13 @@ Example `POST /analyze` request body:
 Example `POST /analyze` response body:
 
 {
+  "report_id": "abc12345",
   "report": "# CareerFit AI Match Report...",
   "summary": "CareerFit AI analysis completed successfully.",
   "match_score": 82
 }
-If the API cannot find a clear numeric score in the AI report, `match_score` will be `null`.
+`report_id` is a short unique identifier for the generated analysis report.
+
 
 ## Run Tests
 
