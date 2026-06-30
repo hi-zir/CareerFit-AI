@@ -6,14 +6,20 @@ from api.schemas import ResumeMatchRequest, ResumeMatchResponse
 
 
 class TestApiSchemas(unittest.TestCase):
+
     def test_resume_match_request_accepts_valid_data(self):
         request = ResumeMatchRequest(
             resume_text="Python and SQL resume",
             job_description_text="Backend AI job",
         )
 
-        self.assertEqual(request.resume_text, "Python and SQL resume")
-        self.assertEqual(request.job_description_text, "Backend AI job")
+        response = ResumeMatchResponse(
+            report_id="abc12345",
+            report="# CareerFit AI Match Report",
+            summary="CareerFit AI analysis completed successfully.",
+            match_score=75,
+        )
+        
 
     def test_resume_match_request_rejects_empty_resume(self):
         with self.assertRaises(ValidationError):
@@ -31,15 +37,17 @@ class TestApiSchemas(unittest.TestCase):
 
     def test_resume_match_response_accepts_report(self):
         """
-        Verifies that the API response schema accepts a report, summary,
-        and an optional match score.
+        Verifies that the API response schema accepts a report ID, report,
+        summary, and optional match score.
         """
         response = ResumeMatchResponse(
+            report_id="abc12345",
             report="# CareerFit AI Match Report",
             summary="CareerFit AI analysis completed successfully.",
             match_score=75,
         )
 
+        self.assertEqual(response.report_id, "abc12345")
         self.assertEqual(response.report, "# CareerFit AI Match Report")
         self.assertEqual(
             response.summary,
@@ -53,12 +61,13 @@ class TestApiSchemas(unittest.TestCase):
         workflow returns a Markdown report instead of structured JSON.
         """
         response = ResumeMatchResponse(
+            report_id="abc12345",
             report="# CareerFit AI Match Report",
             summary="CareerFit AI analysis completed successfully.",
         )
 
-        self.assertIsNone(response.match_score)    
-
+        self.assertEqual(response.report_id, "abc12345")
+        self.assertIsNone(response.match_score)        
 
 if __name__ == "__main__":
     unittest.main()

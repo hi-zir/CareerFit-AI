@@ -32,6 +32,10 @@ class ResumeMatchResponse(BaseModel):
     a Markdown report. A future version can extract or generate this score
     as structured data.
     """
+    report_id: str = Field(
+        ...,
+        description="Unique identifier for this analysis report.",
+    )
 
     report: str = Field(
         ...,

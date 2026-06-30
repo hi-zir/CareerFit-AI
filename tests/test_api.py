@@ -39,15 +39,14 @@ class TestApiRootEndpoint(unittest.TestCase):
                 },
             )
 
+        response_data = response.json()
+
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.json(),
-            {
-                "report": fake_report,
-                "summary": ANALYSIS_SUCCESS_SUMMARY,
-                "match_score": 82,
-            },
-        )
+        self.assertEqual(response_data["report"], fake_report)
+        self.assertEqual(response_data["summary"], ANALYSIS_SUCCESS_SUMMARY)
+        self.assertEqual(response_data["match_score"], 82)
+        self.assertEqual(len(response_data["report_id"]), 8)
+
         mock_analyze.assert_called_once_with(
             resume_text="Python and SQL resume",
             job_description_text="Backend AI job",
@@ -128,15 +127,13 @@ class TestApiRootEndpoint(unittest.TestCase):
                 },
             )
 
+        response_data = response.json()
+
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.json(),
-            {
-                "report": fake_report,
-                "summary": ANALYSIS_SUCCESS_SUMMARY,
-                "match_score": None,
-            },
-        )    
+        self.assertEqual(response_data["report"], fake_report)
+        self.assertEqual(response_data["summary"], ANALYSIS_SUCCESS_SUMMARY)
+        self.assertIsNone(response_data["match_score"])
+        self.assertEqual(len(response_data["report_id"]), 8)   
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,3 +1,4 @@
+from uuid import uuid4
 from fastapi import FastAPI, HTTPException
 
 from api.schemas import ResumeMatchRequest, ResumeMatchResponse
@@ -63,6 +64,7 @@ def analyze_resume(request: ResumeMatchRequest):
     match_score = extract_match_score(report)
 
     return ResumeMatchResponse(
+        report_id=uuid4().hex[:8],
         report=report,
         summary=ANALYSIS_SUCCESS_SUMMARY,
         match_score=match_score,
