@@ -106,6 +106,37 @@ class TestApiRootEndpoint(unittest.TestCase):
                 "service": "CareerFit AI API",
             },
         )
+    
+    def test_analyze_endpoint_returns_none_when_report_has_no_score(self):
+        """
+        Verifies that the API returns match_score as None when the AI report
+        does not contain a clear numeric score.
+        """
+        client = TestClient(app)
+        fake_report = """
+        # Fake CareerFit AI Match Report
+
+        This report does not include a clear numeric match score.
+        """
+
+        with patch("api.main.analyze_resume_match", return_value=fake_report):
+            response = client.post(
+                "/analyze",
+                json={
+                    "resume_text": "Python and SQL resume",
+                    "job_description_text": "Backend AI job",
+                },
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            {
+                "report": fake_report,
+                "summary": ANALYSIS_SUCCESS_SUMMARY,
+                "match_score": None,
+            },
+        )    
 
 if __name__ == "__main__":
     unittest.main()
