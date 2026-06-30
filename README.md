@@ -168,8 +168,9 @@ Example `POST /analyze` response body:
 {
   "report": "# CareerFit AI Match Report...",
   "summary": "CareerFit AI analysis completed successfully.",
-  "match_score": null
+  "match_score": 82
 }
+If the API cannot find a clear numeric score in the AI report, `match_score` will be `null`.
 
 ## Run Tests
 
